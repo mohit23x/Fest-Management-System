@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<body class = 'grey lighten-2'>
+<nav>
+    <div class="nav-wrapper  grey darken-3">
+      <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="" class="brand-logo" target="_blank">FEST MANAGEMENT SYSTEM</a>
+                <ul id="nav-mobile" class="right hide-on-small-only">
+            <li><div class="chip nav-right">
+            <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" alt="">
+            {{ request.user }}
+            </div></li>
+        </ul>
+      <ul class="side-nav grey darken-2" id="mobile-demo">
+
+
+        <li class="sidenav-header blue">
+          <div class="row">
+            <div class="col s4">
+                <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" width="48px" height="48px" alt="" class="circle responsive-img valign profile-image">
+            </div>
+            <div class="col s8">
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text" href="#" data-activates="profile-dropdown">Jay<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id="profile-dropdown" class="dropdown-content">
+                </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="white"><a href="{% url 'maindashboard' %}" class="waves-effect waves-blue"><i class="material-icons">mail</i>DASHBOARD</a></li>
+        <li class="white"><a href="{% url 'allevents' %}" class="waves-effect waves-blue"><i class="material-icons">call</i> ALL EVENTS</a></li>
+        <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">android</i> CO-ORDINATORS</a></li>
+        <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">dialpad</i> SPONSERS</a></li>
+        <li class="white"><div class="divider"></div></li>
+
+        <ul id="" class="">
+                    <li class="white"><a href="#"><i class="material-icons">person</i>Profile</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">settings</i>Setting</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>Help</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>logout</a></li>
+        </ul></ul>
+    </div>
+  </nav>
+<!--- dont touch this --->
+<div class="row grey lighten-2">
+    <br>
+    <div class="container">
+        <div class="col s12">
+                <a href="{% url 'addevent' %}" class="btn btn-wave btn-large red">add event</a>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row grey lighten-2">
+    <div class="col s12">
+        {% for d in data %}
+        <div class="row  ">
+            <div class="container">
+                <div class="col s12">
+                    <div class="card-panel teal z-depth-3">
+                        <div class="row">
+                            <div class="col s8">
+                  <span class="white-text ">
+                       <h3>{{ d.name }}</h3>
+                      <p>{{ d.description }}</p><hr>
+                      <span class="grey-text text-lighten-2">Minimum Number Participant : </span>{{ d.minimumparticipant}}<br>
+                       <span class="grey-text text-lighten-2">Maximum Number Participant : </span>{{ d.maximumparticipant}}<br>
+                       <span class="grey-text text-lighten-2">Date : </span>{{ d.date}}<br>
+                       <span class="grey-text text-lighten-2">Participation Fees: </span>{{ d.fees}}<br>
+                  </span>
+                            </div>
+                            <div class="col s4 center-align">
+                                <span class="grey-text text-lighten-2 center-align">No. of Entries till now : </span><h3 class="text-white center-align"><span class="white-text">{{ d.entries}}</span></h3>
+                                <div class="row valign-wrapper">
+                                    <div class="col s12">
+                                        <div class="valign"><br><br><br>
+                                        <a href="{% url 'eventdelete' d.pk %}"  class="white-text btn btn-small orange">delete</a>
+                                        </div></div>
+                                </div>
+                            </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+<script>
+
+
+$(document).ready(function(){
+  $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
+
+Materialize.toast('Showing All Events', 4000,'',function(){console.log('Your toast was dismissed')})
+
+});
+</script>
+
+
+</body></html>
+
+
+{% endblock %}

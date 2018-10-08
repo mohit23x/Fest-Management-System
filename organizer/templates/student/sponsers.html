@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<body class='blue lighten-5'>
+<nav>
+    <div class="nav-wrapper blue lighten-2">
+      <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="" class="brand-logo" target="_blank">FEST MANAGEMENT SYSTEM</a>
+        <ul id="nav-mobile" class="right hide-on-small-only">
+            <li><div class="chip nav-right">
+            <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" alt="">
+            {{ request.user }}
+            </div></li>
+        </ul>
+      <ul class="side-nav grey darken-2" id="mobile-demo">
+
+
+        <li class="sidenav-header blue">
+          <div class="row">
+            <div class="col s4">
+                <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" alt="" class="circle responsive-img valign profile-image">
+            </div>
+            <div class="col s8">
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text" href="#" data-activates="profile-dropdown">{{ request.user }}<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id="profile-dropdown" class="dropdown-content">
+                </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="white"><a href="{% url 'maindashboard' %}" class="waves-effect waves-blue"><i class="material-icons">mail</i>DASHBOARD</a></li>
+        <li class="white"><a href="{% url 'allevents' %}" class="waves-effect waves-blue"><i class="material-icons">call</i> ALL EVENTS</a></li>
+        <li class="white"><a href="{% url 'addcoordin' %}" class="waves-effect waves-blue"><i class="material-icons">android</i> ADD NEW CO-ORDINATORS</a></li>
+        <li class="white"><a href="{% url 'sponsers' %}" class="waves-effect waves-blue"><i class="material-icons">dialpad</i> SPONSERS</a></li>
+        <li class="white"><div class="divider"></div></li>
+
+        <ul id="" class="">
+                    <li class="white"><a href="#"><i class="material-icons">person</i>Profile</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">settings</i>Setting</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>Help</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>logout</a></li>
+        </ul></ul>
+    </div>
+  </nav>
+<!--- dont touch this --->
+<br>
+<div class="container">
+    <hr>
+    <br>
+    {% for s in sponser %}
+    <div class="row blue  ">
+        <div class="col s12 m6 ">
+            <div class="card blue lighten-4 text-black">
+            <div class="card-content black-text">
+              <span class="card-title">{{ s.name }}</span>
+              <p><span class="blue-text "> Amount : &nbsp;</span>{{ s.amount }}</p>
+                <p><span class="blue-text "> website : &nbsp;</span><a href="{{ s.website }}" class="black-text"><u>{{ s.website }}</u></a></p>
+                <p><span class="blue-text "> Contact : &nbsp;</span>{{ s.contact }}</p>
+                <p><span class="blue-text "> Address : &nbsp;</span>{{ s.address }}</p>
+            </div>
+            <div class="card-action">
+              <a href="{% url 'positive' s.pk %}" class="btn green">POSITIVE</a>
+              <a href="{% url 'negative' s.pk %}" class="btn btn-waves red">NEGATIVE</a>
+            </div>
+            </div>
+        </div>
+        <div class="col  m6 .hide-on-small-only ">
+            <div class="chips chips-placeholder"></div>
+            <div class="row">
+                <div class="col s12">
+                    <br>
+                    <p class="white-text bold"><b>POSITIVE = {{ s.positive }}</b></p>
+                    <p class="white-text bold"><b>NEGATIVE = {{ s.negative }}</b></p>
+                    <p class="white-text bold"><b>FINAL = {{ s.final }}</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+  $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
+ $('.chips-placeholder').material_chip({
+    placeholder: 'Enter a tag',
+    secondaryPlaceholder: '+Tag',
+  });
+});
+</script>
+
+</body></html>
+
+
+{% endblock %}

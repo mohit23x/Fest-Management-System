@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="" class="brand-logo" target="_blank">FEST MANAGEMENT SYSTEM</a>
+                <ul id="nav-mobile" class="right hide-on-small-only">
+            <li><div class="chip nav-right">
+            <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" alt="">
+            {{ request.user }}
+            </div></li>
+        </ul>
+      <ul class="side-nav grey darken-2" id="mobile-demo">
+
+
+        <li class="sidenav-header blue">
+          <div class="row">
+            <div class="col s4">
+                <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" width="48px" height="48px" alt="" class="circle responsive-img valign profile-image">
+            </div>
+            <div class="col s8">
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text" href="#" data-activates="profile-dropdown">{{ request.user }}<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id="profile-dropdown" class="dropdown-content">
+                </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="white"><a href="{% url 'maindashboard' %}" class="waves-effect waves-blue"><i class="material-icons">mail</i>DASHBOARD</a></li>
+        <li class="white"><a href="{% url 'allevents' %}" class="waves-effect waves-blue"><i class="material-icons">call</i> ALL EVENTS</a></li>
+        <li class="white"><a href="{% url 'allcoordinators' %}" class="waves-effect waves-blue"><i class="material-icons">android</i> ALL CO-ORDINATORS</a></li>
+        <li class="white"><a href="{% url 'sponsers' %}" class="waves-effect waves-blue"><i class="material-icons">dialpad</i> SPONSERS</a></li>
+        <li class="white"><div class="divider"></div></li>
+
+        <ul id="" class="">
+                    <li class="white"><a href="#"><i class="material-icons">person</i>Profile</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">settings</i>Setting</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>Help</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>logout</a></li>
+        </ul></ul>
+    </div>
+  </nav>
+<!--- dont touch this --->
+<br>
+<div class="row">
+    <div class="">
+<canvas id="myChart" width="300vh" height="50vw"></canvas>
+    </div>
+</div>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{% for s in sdata %}"{{ s.name }}",{% endfor %}],
+        datasets: [{
+            label: 'SPONSER POSITIVE GRAPGH',
+            data: [{% for s in sdata %}{{ s.positive }},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
+<br>
+<hr>
+<br>
+<div class="row">
+    <div class="col s12 m6">
+<canvas id="pie-chart" width="800" height="450"></canvas>
+<script>
+new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: [{% for s in sdata %}"{{ s.name }}",{% endfor %}],
+      datasets: [{
+        label: "Amount (millions)",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        data: [{% for s in sdata %} {{ s.amount }}, {% endfor %}]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Amount Payed by each sponser'
+      }
+    }
+});
+
+
+</script>
+
+
+    </div>
+    <br>
+    <div class="col s12 m6">
+        <canvas id="bar-chart-horizontal" ></canvas>
+        <script>
+new Chart(document.getElementById("bar-chart-horizontal"), {
+    type: 'horizontalBar',
+    data: {
+      labels: [{% for e in edata %}"{{e.name}}",{% endfor  %}],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [{% for e in edata %}{{e.fees}},{% endfor %}]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Fees of participation for sttudents'
+      }
+    }
+});
+
+        </script>
+    </div>
+
+</div>
+
+<br>
+<hr>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <canvas id="bar-chart-grouped" ></canvas>
+            <script>
+                new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+      labels: [{% for e in edata %}"{{e.name}}",{% endfor  %}],
+      datasets: [
+        {
+          label: "NO OF ENTRY",
+          backgroundColor: "#3e95cd",
+          data: [{% for e in edata %}{{e.entries}},{% endfor %}]
+        }, {
+          label: "FEES",
+          backgroundColor: "#8e5ea2",
+          data: [{% for e in edata %}{{e.fees}},{% endfor %}]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Side by side Coparision of no. of enry and fees of event'
+      }
+    }
+});
+            </script>
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<script>
+
+$(document).ready(function(){
+  $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
+Materialize.toast('Hi {{ request.user }}', 3000,'',function(){Materialize.toast('Everything is up to date!', 3000,'',function(){console.log('Your toast was dismissed')})})
+});
+</script>
+
+</body></html>
+
+
+{% endblock %}

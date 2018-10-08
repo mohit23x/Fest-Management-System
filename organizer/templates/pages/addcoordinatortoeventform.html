@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h3>Please Select the names of the members: </h3>
+            <br>
+            <hr>
+        </div></div>
+    <div class="row">
+        <div class="col s12 m10 offset-m-1">
+        <form method="POST">
+    {% csrf_token %}
+
+    {{ form }}
+
+    <button type="submit" class="btn btn-green btn-wave">Submit</button>
+            <a href="{% url 'allcoordinators' %}">Cancel</a>
+</form>
+        </div></div></div>
+<script>
+     $(document).ready(function() {
+    $('select').material_select();
+  });
+
+</script>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,43 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+      {% load static %}
+      <link type="text/css" rel="stylesheet" href="{% static 'materialize/materialize.css' %}"  media="screen,projection"/>
+      <script type="text/javascript" src="{% static 'materialize/jqueryn.js' %}"></script>
+      <script type="text/javascript" src="{% static 'materialize/materialize.js' %}"></script>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+  <!-- Page Layout here -->
+<div class="container">
+    <div class="row">
+
+      <div class="col s3">
+        <!-- Grey navaigation panel -->
+
+      </div>
+
+      <div class="col s9">
+
+{{ form }}
+
+
+      </div>
+
+    </div>
+</div>
+    </body>
+  </html>

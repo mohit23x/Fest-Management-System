@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<body>
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" data-activates="mobile-demo" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+      <a href="" class="brand-logo" target="_blank">FEST MANAGEMENT SYSTEM</a>
+        <ul id="nav-mobile" class="right hide-on-small-only">
+            <li><div class="chip nav-right">
+            <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" alt="">
+            {{ request.user }}
+            </div></li>
+        </ul>
+
+
+      <ul class="side-nav grey darken-2" id="mobile-demo">
+
+
+        <li class="sidenav-header blue">
+          <div class="row">
+            <div class="col s4">
+                <img src="http://www.newdesignfile.com/postpic/2014/01/flat-user-icon-default_355626.png" width="48px" height="48px" alt="" class="circle responsive-img valign profile-image">
+            </div>
+            <div class="col s8">
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text" href="#" data-activates="profile-dropdown">{{ request.user}}<i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <ul id="profile-dropdown" class="dropdown-content">
+                </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="white"><a href="{% url 'maindashboard' %}" class="waves-effect waves-blue"><i class="material-icons">mail</i>DASHBOARD</a></li>
+        <li class="white"><a href="{% url 'allevents' %}" class="waves-effect waves-blue"><i class="material-icons">call</i> ALL EVENTS</a></li>
+        <li class="white"><a href="{% url 'addcoordin' %}" class="waves-effect waves-blue"><i class="material-icons">android</i> ADD NEW CO-ORDINATORS</a></li>
+        <li class="white"><a href="{% url 'allcoordinators' %}" class="waves-effect waves-blue"><i class="material-icons">android</i> ALL CO-ORDINATORS</a></li>
+        <li class="white"><a href="#" class="waves-effect waves-blue"><i class="material-icons">dialpad</i> SPONSERS</a></li>
+        <li class="white"><div class="divider"></div></li>
+
+        <ul id="" class="">
+                    <li class="white"><a href="#"><i class="material-icons">person</i>Profile</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">settings</i>Setting</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>Help</a></li>
+                    <li class="white"><a href="#"><i class="material-icons">help</i>logout</a></li>
+        </ul></ul>
+    </div>
+  </nav>
+<!--- dont touch this --->
+
+<br>
+<div class="row">
+    <div class="col s12">
+        <div class="container">
+            <a href="{% url 'addcoordinators' %}" class="btn btn-large">ADD NEW CO ORDINATOR</a>
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+<div class="row">
+    <div class="col s12">
+        <div class="container">
+            <table  class="striped" >
+        <thead>
+          <tr>
+              <th data-field="id">Permissiona</th>
+              <th data-field="name">Username</th>
+              <th data-field="price">email</th>
+-          </tr>
+        </thead>
+
+        <tbody>
+        {% for d in data %}
+          <tr>
+              <td>{{ d.groups.get }}</td>
+              <td>{{ d.username }}</td>
+            <td>{{ d.email }}</td>
+
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+  $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+
+  );
+
+});
+</script>
+
+</body></html>
+
+
+{% endblock %}
